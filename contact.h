@@ -10,6 +10,7 @@ public:
     std::string get_surname() const;
     std::string get_phone_number() const;
     std::string get_address() const;
+    std::string contact_to_short_string();
 public:
     void set_name(const std::string&);
     void set_surname(const std::string&);

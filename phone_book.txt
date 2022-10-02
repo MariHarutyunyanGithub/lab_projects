@@ -1,0 +1,27 @@
+name :           Anna|   surname :      Araqelyan|   phone_number :          22222|   address :    Yerevan
+name :           Sona|   surname :      Araqelyan|   phone_number :         333333|   address :    Kapan
+name :         Hasmik|   surname :        Avagyan|   phone_number :       44444444|   address :    Aparan
+name :            Gor|   surname :    Khachatryan|   phone_number :      093193947|   address :    Yerevan
+name :           Kamo|   surname :    Khachatryan|   phone_number :      095330501|   address :    Yerevan
+name :            Gor|   surname :    Khachatryan|   phone_number :      099010705|   address :    Yerevan
+name :           Mher|   surname :       Badalyan|   phone_number :      095115588|   address :    Yerevan
+name :          Arman|   surname :     Miqayelyan|   phone_number :     0235458966|   address :    Areni
+name :         Arevik|   surname :     Karapetyan|   phone_number :            456|   address :    Areni
+name :         Gvidon|   surname :       Simonyan|   phone_number :           8569|   address :    Aparan
+name :           Mari|   surname :    Khachatryan|   phone_number :      096977775|   address :    Sisian
+name :        Haykuhi|   surname :      Voskanyan|   phone_number :      365214456|   address :    Abovyan
+name :        Arzuman|   surname :   Gharakhanyan|   phone_number :         456545|   address :    Dilijan
+name :        Vardush|   surname :     Karapetyan|   phone_number :         456478|   address :    Talin
+name :         Karine|   surname :        Davtyan|   phone_number :      789789789|   address :    Agarak
+name :           Aram|   surname :     Saribekyan|   phone_number :       85478547|   address :    Arpi
+name :           Kamo|   surname :      Khalatyan|   phone_number :         456789|   address :    Aragats
+name :          Galya|   surname :     Kirakosyan|   phone_number : 12345678912345|   address :    Getashen
+name :          Araqs|   surname :    Khachatryan|   phone_number :      099205830|   address :    Yerevan 24/18
+name :       Artashes|   surname :    Qalantaryan|   phone_number :            523|   address :    Yerevan
+name :          Lilit|   surname :       Sharoyan|   phone_number :      077456985|   address :    Abelyan5/24
+name :          Argam|   surname :       Sargsyan|   phone_number :            789|   address :    Yerevan
+name :          Hrant|   surname :       Asatryan|   phone_number :         568932|   address :    Halabyan 1/5
+name :          Maria|   surname :     Hovakimyan|   phone_number :     0965688935|   address :    Ashtarak 56_45
+name :           Kamo|   surname :      Grigoryan|   phone_number :  0554458665321|   address :    444-lk 323/k44
+name :           Mari|   surname :      Geghamyan|   phone_number :      456456485|   address :    Margaryan 5
+name :          Ashot|   surname :    Harutyunyan|   phone_number :         258963|   address :    Tsaxkadzor
