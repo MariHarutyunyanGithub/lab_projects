@@ -1,6 +1,3 @@
-#ifndef CONTACT_HPP
-#define CONTACT_HPP
-
 #include "contact.h"
 
  std::string Contact::get_name() const
@@ -170,4 +167,3 @@ std::string Contact::contact_to_short_string()
     str_contact += "  |";
     return str_contact;     
 }
-#endif //CONTACT_HPP
