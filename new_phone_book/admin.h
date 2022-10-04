@@ -27,6 +27,8 @@ public:
     void start();
 private:
     Contact create_contact();
+    Contact string_to_Contact(std::string);
+    std::string Contact_to_string(Contact&);
     void Contact_to_short_string(Contact);
     void show_main_menu();     
     void menu_functions(short);
