@@ -23,7 +23,4 @@ private:
     std::string m_address;
 };
 
-Contact string_to_Contact(std::string);
-std::string Contact_to_string(Contact&);
-
 #endif //CONTACT_H
