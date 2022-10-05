@@ -2,10 +2,10 @@
 #include <climits>
 #include "admin.h"
 
-//Ֆունկցիան բացում է ֆայլը, պարունակությունը տող առ տող գցում data վեկտորի մեջ,
-//հեռախոսահամարները գցում է phone վեկտորի մեջ, բոլոր պարամետրերի երկարություններն
-//արտահայտող թվերը գցում է lengths վեկտորի մեջ, փակում է ֆայլը,
-//ողջունում է user֊ին, վերջում կանչում է show_main_menu() ֆունկցիան
+// The function opens the file, inserts the content line by line into the "data" vector,
+// drops the phone numbers into the "phone" vector,
+// puts numbers representing the lengths of all parameters into the "lengths" vector, 
+// closes the file, greets the user, finally calls the show_main_menu() function
 void Admin::start()
 {   
 	fin.open("phone_book.txt", std::ios::in);
@@ -14,7 +14,7 @@ void Admin::start()
         exit(0);
     }
     else {
-		std::string line{};//ինֆորացիան տող առ տող պահելու համար
+		std::string line{}; // to store the information line by line
         Contact obj;
         while (std::getline(fin, line)) {
 			data.push_back(line);
@@ -38,9 +38,9 @@ void Admin::start()
     }
 }
 
-//ֆունկցիան user֊ին ներկայացնում է այն գործողությունները (համապատասխան կոդերով),
-//որոնք support է անում ծրագիրը, ընդունում է user֊ից կոդը, ստուգում է վալիդությունը,
-//վերջում կանչում է menu_functions(short) ֆունկցիան
+// the function presents to the user the actions (with corresponding codes) that the program supports, 
+// accepts code from user, checks for validity,
+// finally calls the menu_functions(short) function
 void Admin::show_main_menu()
 {
     std::cout   << std::endl << std::endl 
@@ -64,7 +64,8 @@ void Admin::show_main_menu()
     }while (key < 0 || key > 5);
     menu_functions(key);
 }
-//կազմակերպում է ծրագրի ավարտը
+
+// organizes the completion of the project
 void Admin::exit_from_program()
 {
 	std::cout << std::endl << "are you sure, you really want to exit from program?(y / n) \n";
@@ -83,7 +84,7 @@ void Admin::exit_from_program()
 		}
 }
 
-//ստանալով կոդը user֊ից, կանչում է համապատասխան ֆունկցիան
+// receiving the code from user calls the corresponding function
 void Admin::menu_functions(short key)
 {
     switch(key){
@@ -113,6 +114,7 @@ void Admin::menu_functions(short key)
     }
 }
 
+// Parsing the string gets an object of type Contact and returns that object
 Contact Admin::string_to_Contact(std::string str)
 {
     Contact new_obj;
@@ -143,6 +145,7 @@ Contact Admin::string_to_Contact(std::string str)
     return new_obj;
 }
 
+// Converts an object of type Contact to a string and returns that string
 std::string Admin::Contact_to_string(Contact& obj)
 {
     std::string str_contact{};
@@ -158,6 +161,7 @@ std::string Admin::Contact_to_string(Contact& obj)
     return str_contact;
 }
 
+// Displays all contact data in the console as a table
 void Admin::show_all_contacts()
 {   
     Contact obj;
@@ -236,6 +240,7 @@ void Admin::show_all_contacts()
     show_main_menu();
 }
 
+// The function receives an object of type Contact, converts it to a table view string
 void Admin::Contact_to_short_string(Contact obj)
 {
     int new_size = m_size;
@@ -270,6 +275,7 @@ void Admin::Contact_to_short_string(Contact obj)
     std::cout << str_contact << std::endl;    
 }
 
+// The function creates a new Contact object, converts it to a string, adds both to the data vector and to the file
 void Admin::add_new_contact()
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app);
@@ -291,8 +297,8 @@ void Admin::add_new_contact()
     show_main_menu();
 }
 
-//ֆունկցիան ստեղծում է Contact տիպի օբյեկտ և user֊ի կողմից տրված համապատասխան
-//պարամետրերը ստուգելուց հետո set է անում
+// The function creates an object of type Contact and after checking
+// the appropriate parameters given by the user, sets the contact
 Contact Admin::create_contact()
 {
     Contact contact;    
@@ -341,15 +347,15 @@ Contact Admin::create_contact()
     return contact;
 }
 
+// Gets a string representing the name, checks for validation, returns the appropriate boolean value
 bool Admin::check_name(std::string& name) const
 {
-    //կանխում ենք 14 սիմվոլից ավել մուտքագրումը
+    // prevent entering more than 30 characters
     if (name.length() > 31) {
         std::cout << std::endl << "The length of the entered name must be less or aqual to 30. Please enter a shorter name" << std::endl;
         return false;
     } 
-    //մուտքագրված անունը պիտի բաղկացած լինի միայն լատիներեն տառերից,
-    //թույլատրվում է օգտագործել նաև բացատ․
+    // The entered name must consist of only Latin letters. It is also allowed to use a space.
     for (int i{}; i < name.length(); ++i) {
         if (!(name[i] >= 'a' && name[i] <= 'z') 
                 && !(name[i] >= 'A' && name[i] <= 'Z') 
@@ -358,7 +364,7 @@ bool Admin::check_name(std::string& name) const
             return false;
         }
     }        
-    //կանխում ենք միայն պրաբելներից բաղկացած կամ դատարկ տողի մուտքագրումը
+    // Prevent input of only spaces or an empty string
     bool is_empty_name{true};
     for (int i{}; i < name.length(); ++i) {
         if (name.length() > 0 && name[i] != ' ') {
@@ -373,15 +379,15 @@ bool Admin::check_name(std::string& name) const
     return true;
 }
 
+// Gets a string representing the surname, checks for validation, returns the appropriate boolean value
 bool Admin::check_surname(std::string& surname) const
 {
-    //կանխում ենք 14 սիմվոլից ավել մուտքագրումը
+    // prevent entering more than 30 characters
     if (surname.length() > 30) {
         std::cout << std::endl << "The length of the entered surname must be less or aqual to 30. Please enter a shorter surname" << std::endl;
         return false;
-    } 
-    //մուտքագրված անունը պիտի բաղկացած լինի միայն տառերից,
-    //թույլատրվում է օգտագործել նաև բացատ․
+    }
+    // The entered name must consist of only Latin letters. It is also allowed to use a space.
     for (int i{}; i < surname.length(); ++i) {
         if (!(surname[i] >= 'a' && surname[i] <= 'z') 
                 && !(surname[i] >= 'A' && surname[i] <= 'Z') 
@@ -390,7 +396,7 @@ bool Admin::check_surname(std::string& surname) const
             return false;
         }
     }        
-    //կանխում ենք միայն պրաբելներից բաղկացած կամ դատարկ տողի մուտքագրումը
+    // Prevent input of only spaces or an empty string
     bool is_empty_surname{true};
     for (int i{}; i < surname.length(); ++i) {
         if (surname.length() > 0 && surname[i] != ' ') {
@@ -405,21 +411,22 @@ bool Admin::check_surname(std::string& surname) const
     return true;
 }
 
+// Gets a string representing the phone number, checks for validation, returns the appropriate boolean value
 bool Admin::check_phone_number(std::string& phone_number) const
 {
-    //կանխում ենք 14 սիմվոլից ավել մուտքագրումը
+    // prevent entering more than 30 characters
     if (phone_number.length() > 30) {
         std::cout << std::endl << "The length of the entered number must be less or aqual to 30. Please enter a shorter number" << std::endl;
         return false;
     }
-    //մուտքագրված համարը պիտի բաղկացած լինի միայն թվանշաններից
+    // The entered number must consist of digits only
     for (int i{}; i < phone_number.length(); ++i) {
         if (!(phone_number[i] >= '0' && phone_number[i] <= '9')) {
             std::cout << std::endl << "Your input is not valid. Please, input the correct phone number." << std::endl;
             return false;
         }
     }
-    // համարը չպիտի կրկնվի
+    // The number must not be repeated
     for (int i{}; i < phone.size(); ++i) {
         if (phone[i] == phone_number) {
             std::cout << std::endl << "that phone_numer already exists. Please, input another number" << std::endl;
@@ -429,15 +436,16 @@ bool Admin::check_phone_number(std::string& phone_number) const
     return true;
 }
 
+// Gets a string representing the address, checks for validation, returns the appropriate boolean value
 bool Admin::check_address(std::string& address) const
 {
-    //կանխում ենք 15 սիմվոլից ավել մուտքագրումը
+    // prevent entering more than 30 characters
     if (address.length() > 30) {
         std::cout << std::endl << "The length of the entered address must be less or aqual to 30. Please enter a shorter address" << std::endl;
         return false;
     }
-    //հասցեն պիտի պարունակի տառեր, թվեր, ու մի քանի հատուկ սիմվոլներ։
-    //Ընդունվում է նաև դատարկ կամ միայն պրաբելներից բաղկացած տող
+    // The address must contain Latin letters, numbers, and some special symbols.
+    // An empty or spaces-only string is also accepted
     for (int i{}; i < address.length(); ++i) {
         if (!(address[i] >= 'a' && address[i] <= 'z') 
                 && !(address[i] >= 'A' && address[i] <= 'Z') 
@@ -451,17 +459,16 @@ bool Admin::check_address(std::string& address) const
     return true;    
 }
 
-//ֆունկցիան հնարավորություն է տալիս user֊ին համապատասխան պարամետրեր տալով
-// գտնել կոնտակտը
+// the function enables the user to find the contact by providing appropriate parameters
 void Admin::find_to_edit_contact(std::string& name)
 {
-    std::vector<std::string> same_name_vec{};//նույն անունով կոնտակտների համար
-    std::vector<std::string> same_surname_vec{};//նույն անուն֊ազգանունով կոնտակտների համար
-    int contact_count{};//գտնված կոնտակտների քանակը
-    for (int i{}; i < data.size(); ++i) { //անցնում ենք data֊ի բոլոր էլեմենտների վրայով
+    std::vector<std::string> same_name_vec{}; // for contacts with the same name
+    std::vector<std::string> same_surname_vec{}; // for contacts with the same first and last name
+    int contact_count{}; // number of contacts found
+    for (int i{}; i < data.size(); ++i) { // loop over all data elements
         Contact obj = string_to_Contact(data[i]);
         if (obj.get_name() == name) {
-            contact_count++;//համընկումների քանակը
+            contact_count++; // number of matches
             same_name_vec.push_back(data[i]);
         }
     }
@@ -473,10 +480,10 @@ void Admin::find_to_edit_contact(std::string& name)
         std::cout << std::endl << "No contact found with that name!!" << std::endl;
         show_main_menu();
     }
-    else if (contact_count == 1) { //եթե ունենք ուղիղ մեկ համընկում
+    else if (contact_count == 1) { // if we have exactly one match
         edit_contact(same_name_vec[0]);
     }
-    else {//մեկից ավել համընկնումների դեպքում
+    else { // in case of more than one match
         std::cout << std::endl << "It is not clear which contact you want to change.\n\nPLease, input the surname  :  ";
         std::string surname;
         do {
@@ -485,7 +492,7 @@ void Admin::find_to_edit_contact(std::string& name)
             for (int i{}; i < same_name_vec.size(); ++i) {
                 Contact obj = string_to_Contact(same_name_vec[i]);
                 if (obj.get_surname() == surname) {
-                    contact_count++;//համընկումների քանակը
+                    contact_count++; // number of matches
                     same_surname_vec.push_back(same_name_vec[i]);
                 }
             }
@@ -504,8 +511,8 @@ void Admin::find_to_edit_contact(std::string& name)
         if (contact_count == 1) {
             edit_contact(same_surname_vec[0]);
         }
-        else { //մեկից ավել համընկնումների դեպքում
-            int contact_index; //same_surname_vec վեկտորի մեջ փնտրվող կոնտակտի ինդեքսը 
+        else { // in case of more than one match
+            int contact_index; // The index of the contact to look up in the same_surname_vec vector
             std::cout << std::endl << "again it is not clear which contact you want to change.\n\nPLease, input the phone_number  :  ";
             std::string phone_number{};
             do {
@@ -516,7 +523,7 @@ void Admin::find_to_edit_contact(std::string& name)
                         if (obj.get_phone_number() == phone_number) {
                             contact_count++;
                             std::cout << same_surname_vec[i] << std::endl;
-                            contact_index = i; //ֆիքսում ենք գտած կոնտակտի ինդեքսը
+                            contact_index = i; // we fix the index of the found contact
                         }
                     }
                     if (!contact_count) {
@@ -530,13 +537,12 @@ void Admin::find_to_edit_contact(std::string& name)
             if (contact_count == 1) {
                 edit_contact(same_surname_vec[contact_index]);
             }
-            //մեկից ավել համընկումը հեռախոսահամարի դեպքում բացառվում է
+            // more than one match for a phone number is excluded
         }
     }
 }
 
-//հնարավորություն է տալիս user֊ին ընտրել, թե ինչն է ուզում փոխել տվյալ 
-//կոնտակտի մեջ և կանչում է համապատասխան ֆունկցիան
+// function allows the user to select what he wants to change in a given contact and calls the appropriate function
 void Admin::edit_contact(std::string& str)
 {
     std::cout   << "What do you want to change?\n\n";
@@ -567,7 +573,7 @@ void Admin::edit_contact(std::string& str)
     }
 }
 
-//փոխում է կոնտակտի անունը, փոփոխությունը ֆիքսում է ֆայլի մեջ
+// changes contact name, commits change to file
 void Admin::edit_name(std::string& str)
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app);
@@ -581,9 +587,9 @@ void Admin::edit_name(std::string& str)
             std::cout << std::endl << "Enter the name of contact  :  ";
             std::getline(std::cin, new_name);
         } while (!check_name(new_name));    
-        //նոր անվան վալիդացիան ստուգելուց հետո string֊ը վերածում ենք օբյեկտի,
+        // after checking the validation of the new name, we turn the string into an object
         Contact contact = string_to_Contact(str);
-        //կոնտակտի հին անվան տվյալը lengths վեկտորի միջից ջնջում ենք
+        // we delete the data of the contact's old name from the "lengths" vector
         for (int i{}; i < lengths.size(); ++i) {
             if (lengths[i] == contact.get_name().size()) {
                 lengths.erase(lengths.begin() + i);
@@ -591,7 +597,7 @@ void Admin::edit_name(std::string& str)
             }
         }
         lengths.push_back(new_name.size());
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == contact.get_name().size()) {
             int new_size = 14;
             for (int i{}; i < lengths.size(); ++i) {
@@ -601,16 +607,16 @@ void Admin::edit_name(std::string& str)
             }
             m_size = new_size;
         }
-        //անունը փոխում ենք
+        // change the name
         contact.set_name(new_name);
-        std::string str_contact = Contact_to_string(contact);//նորից վերածում ենք string֊ի
-        //data֊ից ջնջում ենք հին կոնտակտը
+        std::string str_contact = Contact_to_string(contact); // convert back to string
+        // delete the old contact from data
         for (int i{}; i < data.size(); ++i) {
             if (str == data[i]) {
                 data.erase(data.begin() + i);
             }
         }
-        //թարմացվածը գցում ենք data վեկտորի մեջ
+        // insert the updated one into the data vector
         data.push_back(str_contact);
         for (int i{}; i < data.size(); ++i) {
             tmpfout << data[i] << std::endl;
@@ -619,11 +625,11 @@ void Admin::edit_name(std::string& str)
         rename("tmp.txt", "phone_book.txt");
         tmpfout.close();
         std::cout << std::endl << "name updated." << std::endl << std::endl;
-        edit_contact(str_contact);//էլի պարամետր փոխելու հնարավորություն ենք տալիս
+        edit_contact(str_contact); // give the opportunity to change the parameter again
     }
 }
 
-//փոխում է կոնտակտի ազգանունը, փոփոխությունը ֆիքսում է ֆայլի մեջ
+// changes contact surname, commits change to file
 void Admin::edit_surname(std::string& str)
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app); 
@@ -636,19 +642,20 @@ void Admin::edit_surname(std::string& str)
         do {
             std::cout << std::endl << "Enter new surname  :  ";
             std::getline(std::cin, new_surname);
-        } while (!check_name(new_surname));   
+        } while (!check_name(new_surname)); 
+	// after checking the validation of the new surname, we turn the string into an object
         Contact contact = string_to_Contact(str);
         
-        //lengths վեկտորի միջից ջնջում ենք հին ազգանվան երկարությունը
+        // we delete the data of the contact's old surname from the "lengths" vector
         for (int i{}; i < lengths.size(); ++i) {
             if (lengths[i] == contact.get_surname().size()) {
                 lengths.erase(lengths.begin() + i);
                 break;
             }
         }
-        //նոր տվյալի երկարությունը գցում ենք համապատասխան վեկտորի մեջ
+        // drop the length of the new data into the corresponding vector
         lengths.push_back(new_surname.size());
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == contact.get_surname().size()) {
             int new_size = 14;
             for (int i{}; i < lengths.size(); ++i) {
@@ -659,14 +666,14 @@ void Admin::edit_surname(std::string& str)
             m_size = new_size;
         }
         contact.set_surname(new_surname);
-        std::string str_contact = Contact_to_string(contact);//նորից վերածում ենք string֊ի
-        //data֊ից ջնջում ենք հին կոնտակտը
+        std::string str_contact = Contact_to_string(contact); // convert back to string
+        // delete the old contact from data
         for (int i{}; i < data.size(); ++i) {
             if (str == data[i]) {
                 data.erase(data.begin() + i);
             }
         }
-        //թարմացվածը գցում ենք data վեկտորի մեջ
+        // insert the updated one into the data vector
         data.push_back(str_contact);   
         for (int i{}; i < data.size(); ++i) {
             tmpfout << data[i] << std::endl;
@@ -675,11 +682,11 @@ void Admin::edit_surname(std::string& str)
         rename("tmp.txt", "phone_book.txt");
         tmpfout.close();
         std::cout << std::endl << "surname updated." << std::endl << std::endl;
-        edit_contact(str_contact);//էլի պարամետր փոխելու հնարավորություն ենք տալիս
+        edit_contact(str_contact); // give the opportunity to change the parameter again
     }
 }
 
-//ստուգումներ անելուց հետո փոխում է phone_number֊ը, փոփոխությունը ֆիքսում է ֆայլի մեջ
+// changes contact phone number, commits change to file
 void Admin::edit_phone_number(std::string& str)
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app);
@@ -694,22 +701,22 @@ void Admin::edit_phone_number(std::string& str)
             std::cout << std::endl << "Enter new phone number  :  ";
             std::getline(std::cin, new_phone_number);
         } while (!check_phone_number(new_phone_number));
-        //ջնջում ենք հին համարը վեկտորի միջից
+        // delete the old number from the vector
         for (int i{}; i < phone.size(); ++i) {
             if (contact.get_phone_number() == phone[i]) {
                 phone.erase(phone.begin() + i);
             }
         } 
-        //lengths վեկտորի միջից ջնջում ենք հին հեռախոսահամարի երկարությունը
+        // delete the length of the old phone number from the "lengths" vector
         for (int i{}; i < lengths.size(); ++i) {
             if (lengths[i] == contact.get_phone_number().size()) {
                 lengths.erase(lengths.begin() + i);
                 break;
             }
         }
-        //նոր տվյալի երկարությունը գցում ենք համապատասխան վեկտորի մեջ
+        // drop the length of the new data into the corresponding vector
         lengths.push_back(new_phone_number.size());
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == contact.get_phone_number().size()) {
             int new_size = 14;
             for (int i{}; i < lengths.size(); ++i) {
@@ -719,14 +726,14 @@ void Admin::edit_phone_number(std::string& str)
         }
         phone.push_back(new_phone_number);
         contact.set_phone_number(new_phone_number); 
-        std::string str_contact = Contact_to_string(contact);//նորից վերածում ենք string֊ի
-        //data֊ից ջնջում ենք հին կոնտակտը
+        std::string str_contact = Contact_to_string(contact); // convert back to string
+        // delete the old contact from data
         for (int i{}; i < data.size(); ++i) {
             if (str == data[i]) {
                 data.erase(data.begin() + i);
             }
         }
-        //թարմացված կոնտակտի string֊ը գցում ենք data վեկտորի մեջ
+        // put the string of the updated contact into the data vector
         data.push_back(str_contact);        
         for (int i{}; i < data.size(); ++i) {
             tmpfout << data[i] << std::endl;
@@ -735,11 +742,11 @@ void Admin::edit_phone_number(std::string& str)
         rename("tmp.txt", "phone_book.txt");
         tmpfout.close();
         std::cout << std::endl << "phone_number updated." << std::endl << std::endl;
-        edit_contact(str_contact);//էլի պարամետր փոխելու հնարավորություն ենք տալիս
+        edit_contact(str_contact); // give the opportunity to change the parameter again
     }
 }
 
-//փոխում է կոնտակտի հասցեն, փոփոխությունը ֆիքսում է ֆայլի մեջ
+// changes contact address, commits change to file
 void Admin::edit_address(std::string& str)
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app);
@@ -754,16 +761,16 @@ void Admin::edit_address(std::string& str)
             std::getline(std::cin, new_address);
         } while (!check_address(new_address));
         Contact contact = string_to_Contact(str);
-        //lengths վեկտորի միջից ջնջում ենք հին ազգանվան երկարությունը
+        // delete the length of the old surname from the lengths vector
         for (int i{}; i < lengths.size(); ++i) {
             if (lengths[i] == contact.get_address().size()) {
                 lengths.erase(lengths.begin() + i);
                 break;
             }
         }
-        //նոր տվյալի երկարությունը գցում ենք համապատասխան վեկտորի մեջ
+        // drop the length of the new data into the corresponding vector
         lengths.push_back(new_address.size());
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == contact.get_address().size()) {
             int new_size = 14;
             for (int i{}; i < lengths.size(); ++i) {
@@ -772,14 +779,14 @@ void Admin::edit_address(std::string& str)
             m_size = new_size;
         }
         contact.set_address(new_address);
-        std::string str_contact = Contact_to_string(contact);//նորից վերածում ենք string֊ի
-        //data֊ից ջնջում ենք հին կոնտակտը
+        std::string str_contact = Contact_to_string(contact); // convert back to string
+        // delete the old contact from data
         for (int i{}; i < data.size(); ++i) {
             if (str == data[i]) {
                 data.erase(data.begin() + i);
             }
         }
-        //թարմացվածը գցում ենք data վեկտորի մեջ
+        // insert the updated one into the data vector
         data.push_back(str_contact);    
         for (int i{}; i < data.size(); ++i) {
             tmpfout << data[i] << std::endl;
@@ -788,7 +795,7 @@ void Admin::edit_address(std::string& str)
         rename("tmp.txt", "phone_book.txt");
         tmpfout.close();
         std::cout << std::endl << "address updated." << std::endl << std::endl;
-        edit_contact(str_contact);//էլի պարամետր փոխելու հնարավորություն ենք տալիս
+        edit_contact(str_contact); // give the opportunity to change the parameter again
     }
 }
 
