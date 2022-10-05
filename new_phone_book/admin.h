@@ -1,8 +1,8 @@
-//Implement a program, that allows to register a contact information 
-//(name, surname, phone number, address).
-//The program should provide an interface (can be used postman) ,
-//where the user is able to add a new contact , edit the contact 
-//information of the already existing one and remove one of the contacts.
+// Implement a program, that allows to register a contact information 
+// (name, surname, phone number, address).
+// The program should provide an interface (can be used postman) ,
+// where the user is able to add a new contact , edit the contact 
+// information of the already existing one and remove one of the contacts.
 
 
 #ifndef ADMIN_H
@@ -18,9 +18,9 @@ public:
     std::ofstream fout;
     std::ofstream tmpfout;
     std::ifstream fin;
-    std::vector<std::string> data;//կոնտակտները պահելու համար
-    std::vector<std::string> phone;//հեռախոսահամարները պահելու համար
-    std::vector<int> lengths;//ներմուծված պարամետրերի երկարությունների համար
+    std::vector<std::string> data; // for contact information
+    std::vector<std::string> phone; // for phone numbers
+    std::vector<int> lengths; // for the lengths of the imputed parameters
 private:
     int m_size{14};
 public:   
