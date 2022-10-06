@@ -799,17 +799,17 @@ void Admin::edit_address(std::string& str)
     }
 }
 
-//ֆունկցիան գտնում է ճիշտ կոնտակտը, ուղարկում ջնջելու
+// function finds the correct contact, sends to delete
 void Admin::find_to_remove_contact(std::string& name)
 {
-    std::vector<std::string> same_name_vec{};//նույն անունով կոնտակտների համար
-    std::vector<std::string> same_surname_vec{};//նույն անուն֊ազգանունով կոնտակտների համար
+    std::vector<std::string> same_name_vec{}; // for contacts with the same name
+    std::vector<std::string> same_surname_vec{}; // for contacts with the same first and last name
     int contact_count{};
     std::string contact_name{};
-    for (int i{}; i < data.size(); ++i) { //անցնում ենք data֊ի բոլոր էլեմենտների վրայով
+    for (int i{}; i < data.size(); ++i) { // loop over all elements of "data"
         Contact obj = string_to_Contact(data[i]);
-        if (obj.get_name() == name) {//համեմատում ենք մուտքագրված անվան հետ
-            contact_count++;//համընկումների քանակը
+        if (obj.get_name() == name) { // compares with the entered name
+            contact_count++; // number of matches
             same_name_vec.push_back(data[i]);
         }
     }
@@ -821,7 +821,7 @@ void Admin::find_to_remove_contact(std::string& name)
         std::cout << std::endl << "No contact found with that name!!" << std::endl;
         show_main_menu();
     }
-    else if (contact_count == 1) { //եթե ունենք ուղիղ մեկ համընկում
+    else if (contact_count == 1) { // if we have exactly one match
         remove_contact(same_name_vec[0]);
     }
     else {//if (contact_count > 1)
@@ -833,7 +833,7 @@ void Admin::find_to_remove_contact(std::string& name)
             for (int i{}; i < same_name_vec.size(); ++i) {
                 Contact obj = string_to_Contact(same_name_vec[i]);
                 if (obj.get_surname() == surname) {
-                    contact_count++;//համընկումների քանակը
+                    contact_count++; // number of matches
                     same_surname_vec.push_back(same_name_vec[i]);
                 }
             }
@@ -865,7 +865,7 @@ void Admin::find_to_remove_contact(std::string& name)
                     if (obj.get_phone_number() == phone_number) {
                         contact_count++;
                         std::cout << same_surname_vec[i] << std::endl;
-                        contact_index = i; //կոնտակտի ինդեքսը գտանք
+                        contact_index = i; // found the contact index
                     }
                 }
                 if (!contact_count) {
@@ -879,13 +879,13 @@ void Admin::find_to_remove_contact(std::string& name)
             if (contact_count == 1) {
                 remove_contact(same_surname_vec[contact_index]);
             }
-            //մեկից ավել համընկումը հեռախոսահամարի դեպքում բացառվում է
+            // more than one match for a phone number is excluded
         }
     }
 }
 
-//ֆունկցիան փոխանցված կոնտակտը ջնջում է data վեկտորի միջից, ջնջում է նաև ֆայլից,
-//իսկ հեռախոսահամարը ջնջում է phone֊ի միջից
+// the function deletes the passed contact from the "data" vector,
+// also deletes it from the file, and deletes the phone number from the phone
 void Admin::remove_contact(std::string& str)
 {
     tmpfout.open("tmp.txt", std::ios::out | std::ios::app);
@@ -912,7 +912,7 @@ void Admin::remove_contact(std::string& str)
                 break;
             }
         }
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == obj.get_name().size()) {
             int new_size = 0;
             for (int i{}; i < lengths.size(); ++i) {
@@ -926,7 +926,7 @@ void Admin::remove_contact(std::string& str)
                 break;
             }
         }
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == obj.get_surname().size()) {
             int new_size = 0;
             for (int i{}; i < lengths.size(); ++i) {
@@ -940,7 +940,7 @@ void Admin::remove_contact(std::string& str)
                 break;
             }
         }
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == obj.get_phone_number().size()) {
             int new_size = 0;
             for (int i{}; i < lengths.size(); ++i) {
@@ -954,7 +954,7 @@ void Admin::remove_contact(std::string& str)
                 break;
             }
         }
-        //եթե մաքսիմում արժեքով տվյալը ջնջեցինք, գտնում ենք հաջորդ մաքսիմումը
+        // if we deleted the data with the maximum value, we find the next maximum
         if (m_size == obj.get_address().size()) {
             int new_size = 0;
             for (int i{}; i < lengths.size(); ++i) {
@@ -973,7 +973,7 @@ void Admin::remove_contact(std::string& str)
     show_main_menu();
 }
 
-//user֊ին հնարավորություն է տալիս ընտրելու, թե ըստ ինչ պարամետրի գտնի կոնտակտը
+// Allows the user to select the criteria by which to find the contact
 void Admin::find_to_show_contact()
 {
     std::cout << "\nwhat do you want to find the contact by?" << std::endl << std::endl;
@@ -1006,7 +1006,7 @@ void Admin::find_to_show_contact()
     show_main_menu();
 }
 
-//ֆունկցիան ցուցադրում է բոլոր այն կոնտակտները, որոնց անունը համընկնում է մուտքագրված անվան հետ
+// The function displays all contacts whose name matches the entered name
 void Admin::show_by_name()
 {
     std::cout << std::endl << "please, input contact name  :  ";
@@ -1029,7 +1029,7 @@ void Admin::show_by_name()
     }while(!find); 
 }
 
-//ֆունկցիան ցուցադրում է բոլոր այն կոնտակտները, որոնց ազգանունը համընկնում է մուտքագրված ազգանվան հետ
+// The function displays all contacts whose surname matches the entered surname
 void Admin::show_by_surname()
 {
     std::cout << std::endl <<"please, input contact surname  :  ";
@@ -1052,7 +1052,7 @@ void Admin::show_by_surname()
     }while(!find); 
 }
 
-//ֆունկցիան ցուցադրում է մուտքագրված հեռախոսահամարին համապատասխան կոնտակտը
+// The function displays the contact corresponding to the entered phone number
 void Admin::show_by_phone_number()
 {
     std::cout << std::endl << "please, input phone_number  :  ";
@@ -1076,7 +1076,7 @@ void Admin::show_by_phone_number()
     }while(!find); 
 }
 
-//ֆունկցիան ցուցադրում է բոլոր այն կոնտակտները, որոնց հասցեն համընկնում է մուտքագրված հասցեի հետ
+// The function displays all contacts whose address matches the entered address
 void Admin::show_by_address()
 {
     std::cout << std::endl << "please, input contact address  :  ";
