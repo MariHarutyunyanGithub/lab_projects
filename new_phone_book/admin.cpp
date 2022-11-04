@@ -854,7 +854,7 @@ void Admin::find_to_remove_contact(std::string& name)
             remove_contact(same_surname_vec[0]);
         }
         else { //  if (contact_count > 1)
-            int contact_index; //same_surname_vec վեկտորի մեջ փնտրվող կոնտակտի ինդեքսը 
+            int contact_index; // the index of the contact to be searched for in the same_surname vec vector
             std::cout << std::endl << "again it is not clear which contact you want to remove.\n\nPLease, input the phone_number  :  ";
             std::string phone_number{};
             do {
