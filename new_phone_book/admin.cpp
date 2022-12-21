@@ -1088,13 +1088,20 @@ void Admin::show_by_address()
         std::cout << std::endl;
         for (int i{}; i < data.size(); ++i) {
            Contact obj = string_to_Contact(data[i]);
-           if (obj.get_address() == address) {
+           std::string main_address{}; // first word of address
+           int j{};
+           std::string all_address = obj.get_address();
+           while (all_address[j] != ' ') {
+            main_address += all_address[j];
+            ++j;
+           }
+           if (main_address == address || all_address == address) {
                find = true;
                Contact_to_short_string(obj);
            }
         }
         if (!find) {
             std::cout << std::endl << "no contact found in that address. Please, input another address  :  ";
-        }
+      	}
     }while(!find); 
 }
