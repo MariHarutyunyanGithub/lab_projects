@@ -8,5 +8,6 @@ prompts accordingly. There is also a limit on the number of imported symbols (ma
 When there is more than one contact with a given value in the table, the program identifies the contact 
 using the other fields before taking any action. The complete matching of contacts makes the uniqueness 
 of phone numbers impossible.
+An ordinary text file is used as a data store.
 The project is continuously updated and functionality is added.
 To be continued․․․
